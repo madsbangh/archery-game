@@ -10,9 +10,8 @@ namespace MadsBangH.ArcheryGame
 		private const float ShotForceMultiplier = 16f;
 		private const float ShotForceBase = 4f;
 		private const float ReloadCooldownSeconds = 0.5f;
-		private const float MinDragDistance = 1f;
-		private const float MaxDragDistance = 3f;
-		private const float dragThreshold = 0.1f;
+		private const float MinDragDistance = 0.5f;
+		private const float MaxDragDistance = 2.5f;
 
 		private static readonly int StretchAmountHash = Animator.StringToHash("Stretch Amount");
 
@@ -51,17 +50,11 @@ namespace MadsBangH.ArcheryGame
 				Vector2 pullVector = position2D - worldMousePosition;
 				float angle = Mathf.Atan2(pullVector.y, pullVector.x) * Mathf.Rad2Deg;
 				float stretchAmount = Mathf.Clamp01(Mathf.InverseLerp(MinDragDistance, MaxDragDistance, pullVector.magnitude));
-				if (stretchAmount > dragThreshold)
-				{
-					UpdateBowGraphics(angle, stretchAmount);
-				}
+				UpdateBowGraphics(angle, stretchAmount);
 
-				if (Input.GetMouseButtonUp(0))
+				if (isReloaded && Input.GetMouseButtonUp(0))
 				{
-					if (stretchAmount > dragThreshold)
-					{
-						PerformShot(angle, stretchAmount);
-					}
+					PerformShot(angle, stretchAmount);
 					isPullingBow = false;
 				}
 			}
@@ -83,8 +76,8 @@ namespace MadsBangH.ArcheryGame
 
 		private void PerformShot(float angle, float stretchAmount)
 		{
-			lastShotTime = Time.time;
 			isReloaded = false;
+			lastShotTime = Time.time;
 
 			arrowOnBow.SetActive(false);
 			bowAnimator.SetFloat(StretchAmountHash, 0f);
