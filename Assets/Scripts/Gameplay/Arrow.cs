@@ -7,6 +7,11 @@ namespace MadsBangH.ArcheryGame
 	[RequireComponent(typeof(Rigidbody2D))]
 	public class Arrow : MonoBehaviour
 	{
+		[SerializeField]
+		private Transform arrowHead;
+		[SerializeField]
+		private float arrowHeadDownForce;
+
 		private Rigidbody2D rb;
 
 		private void Awake()
@@ -14,11 +19,14 @@ namespace MadsBangH.ArcheryGame
 			rb = GetComponent<Rigidbody2D>();
 		}
 
-		// Destroy self after a while
-		private IEnumerator Start()
+		private void FixedUpdate()
 		{
-			yield return new WaitForSeconds(3f);
-			Destroy(gameObject);
+			rb.AddForceAtPosition(Vector2.down * arrowHeadDownForce, arrowHead.position);
+		}
+
+		private void OnBecameInvisible()
+		{
+			Destroy(gameObject); 
 		}
 
 		public void SetPositionRotationAndSpeed(Vector3 position, float rotation, float speed)
