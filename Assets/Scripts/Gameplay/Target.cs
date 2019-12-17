@@ -10,6 +10,8 @@ namespace MadsBangH.ArcheryGame
 	{
 		private static readonly int IndicateAttackHash = Animator.StringToHash("Indicate Attack");
 
+		public bool willAttack;
+
 		[SerializeField]
 		private string ArrowTag = default;
 
@@ -17,6 +19,7 @@ namespace MadsBangH.ArcheryGame
 		private Rigidbody2D rb;
 
 		private static float AttackMovementSpeed => 0.25f + 0.1f * ArcheryGame.CurrentScore;
+		private static float DelayBeforeAttack => 5f * Mathf.Pow(0.9f, ArcheryGame.CurrentScore);
 
 		private void Awake()
 		{
@@ -33,31 +36,20 @@ namespace MadsBangH.ArcheryGame
 			}
 		}
 
-		private void Update()
+		private IEnumerator Start()
 		{
-			if (Input.GetKeyDown(KeyCode.Space))
+			if (willAttack)
 			{
-				IndicateAndAttack();
+				yield return new WaitForSeconds(DelayBeforeAttack);
+				StartCoroutine(IndicateAndAttackCoroutine());
 			}
-		}
-
-		public void IndicateAndAttack()
-		{
-			StartCoroutine(IndicateAndAttackCoroutine());
 		}
 
 		private IEnumerator IndicateAndAttackCoroutine()
 		{
-			int previousState = animator.GetCurrentAnimatorStateInfo(0).fullPathHash;
-
-			bool IsAnimatorStateUnchanged()
-			{
-				return previousState == animator.GetCurrentAnimatorStateInfo(0).fullPathHash;
-			}
-
 			animator.SetTrigger(IndicateAttackHash);
 
-			yield return new WaitWhile(IsAnimatorStateUnchanged);
+			yield return new WaitForSeconds(1f);
 
 			rb.velocity = (ArcheryPlayer.Position - rb.position).normalized * AttackMovementSpeed;
 		}

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MadsBangH.ArcheryGame
 {
-	public static class ArcheryGame
+	public class ArcheryGame : MonoBehaviour
 	{
 		public static event Action ScoreIncreased;
 		public static event Action GameLost;
@@ -16,6 +16,11 @@ namespace MadsBangH.ArcheryGame
 
 		public static int CurrentScore { get; private set; }
 		public static int Highscore { get; private set; }
+
+		private void Start()
+		{
+			StartNewGame();
+		}
 
 		public static void StartNewGame()
 		{
