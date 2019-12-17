@@ -1,11 +1,28 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 
 namespace MadsBangH.ArcheryGame
 {
+	[RequireComponent(typeof(Animator))]
+	[RequireComponent(typeof(Rigidbody2D))]
 	public class Target : MonoBehaviour
 	{
+		private static readonly int IndicateAttackHash = Animator.StringToHash("Indicate Attack");
+
 		[SerializeField]
 		private string ArrowTag = default;
+
+		private Animator animator;
+		private Rigidbody2D rb;
+
+		private static float AttackMovementSpeed => 0.25f + 0.1f * ArcheryGame.CurrentScore;
+
+		private void Awake()
+		{
+			animator = GetComponent<Animator>();
+			rb = GetComponent<Rigidbody2D>();
+		}
 
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
@@ -14,6 +31,35 @@ namespace MadsBangH.ArcheryGame
 				Destroy(gameObject);
 				ArcheryGame.NotifyTargetWasHit(this);
 			}
+		}
+
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				IndicateAndAttack();
+			}
+		}
+
+		public void IndicateAndAttack()
+		{
+			StartCoroutine(IndicateAndAttackCoroutine());
+		}
+
+		private IEnumerator IndicateAndAttackCoroutine()
+		{
+			int previousState = animator.GetCurrentAnimatorStateInfo(0).fullPathHash;
+
+			bool IsAnimatorStateUnchanged()
+			{
+				return previousState == animator.GetCurrentAnimatorStateInfo(0).fullPathHash;
+			}
+
+			animator.SetTrigger(IndicateAttackHash);
+
+			yield return new WaitWhile(IsAnimatorStateUnchanged);
+
+			rb.velocity = (ArcheryPlayer.Position - rb.position).normalized * AttackMovementSpeed;
 		}
 	}
 }

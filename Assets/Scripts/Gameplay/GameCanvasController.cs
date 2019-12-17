@@ -10,9 +10,9 @@ namespace MadsBangH.ArcheryGame
 		private static readonly int ScoreBumpedHash = Animator.StringToHash("Score Bumped");
 
 		[SerializeField]
-		private TMP_Text scoreLabel;
+		private TMP_Text scoreLabel = default;
 		[SerializeField]
-		private Animator scoreLabelAnimator;
+		private Animator scoreLabelAnimator = default;
 
 		private void OnEnable()
 		{

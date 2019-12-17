@@ -29,6 +29,23 @@ namespace MadsBangH.ArcheryGame
 		private bool isReloaded;
 		private float lastShotTime;
 
+		private static ArcheryPlayer instance;
+		public static Vector2 Position
+		{
+			get
+			{
+				if (instance == null)
+				{
+					instance = FindObjectOfType<ArcheryPlayer>();
+					if (instance == null)
+					{
+						return Vector2.zero;
+					}
+				}
+				return instance.transform.position;
+			}
+		}
+
 		private void Start()
 		{
 			isPullingBow = false;
