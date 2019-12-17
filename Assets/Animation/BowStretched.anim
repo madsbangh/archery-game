@@ -139,7 +139,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Arrow
+    path: Arrow On Bow
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves: []
@@ -165,7 +165,7 @@ AnimationClip:
       customType: 0
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 435601722
+      path: 1228372213
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -568,7 +568,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Arrow
+    path: Arrow On Bow
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -596,7 +596,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Arrow
+    path: Arrow On Bow
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -624,7 +624,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Arrow
+    path: Arrow On Bow
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:
