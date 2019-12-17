@@ -10,8 +10,8 @@ namespace MadsBangH.ArcheryGame
 		private const float ShotForceMultiplier = 16f;
 		private const float ShotForceBase = 4f;
 		private const float ReloadCooldownSeconds = 0.5f;
-		private const float MinDragDistance = 0.5f;
-		private const float MaxDragDistance = 2.5f;
+		private const float MinDragDistance = 0.25f;
+		private const float MaxDragDistance = 2f;
 
 		private static readonly int StretchAmountHash = Animator.StringToHash("Stretch Amount");
 
@@ -25,6 +25,7 @@ namespace MadsBangH.ArcheryGame
 		private Arrow arrowProjectilePrefab = default;
 
 		private bool isPullingBow;
+		private float pullStartDistance;
 		private bool isReloaded;
 		private float lastShotTime;
 
@@ -43,18 +44,19 @@ namespace MadsBangH.ArcheryGame
 				arrowOnBow.SetActive(true);
 			}
 
+			Vector2 worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			Vector2 position2D = new Vector2(transform.position.x, transform.position.y);
+			Vector2 pullVector = position2D - worldMousePosition;
 			if (isPullingBow)
 			{
-				Vector2 worldMousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				Vector2 position2D = new Vector2(transform.position.x, transform.position.y);
-				Vector2 pullVector = position2D - worldMousePosition;
 				float angle = Mathf.Atan2(pullVector.y, pullVector.x) * Mathf.Rad2Deg;
-				float stretchAmount = Mathf.Clamp01(Mathf.InverseLerp(MinDragDistance, MaxDragDistance, pullVector.magnitude));
-				UpdateBowGraphics(angle, stretchAmount);
+				float pullMagnitudeDifference = pullVector.magnitude - pullStartDistance;
+				float pullAmount = Mathf.Clamp01(Mathf.InverseLerp(MinDragDistance, MaxDragDistance, pullMagnitudeDifference));
+				UpdateBowGraphics(angle, pullAmount);
 
 				if (isReloaded && Input.GetMouseButtonUp(0))
 				{
-					PerformShot(angle, stretchAmount);
+					PerformShot(angle, pullAmount);
 					isPullingBow = false;
 				}
 			}
@@ -63,6 +65,7 @@ namespace MadsBangH.ArcheryGame
 				if (Input.GetMouseButtonDown(0))
 				{
 					isPullingBow = true;
+					pullStartDistance = pullVector.magnitude;
 				}
 			}
 		}
