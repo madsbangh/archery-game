@@ -7,25 +7,32 @@ namespace MadsBangH.ArcheryGame
 {
 	public static class ArcheryGame
 	{
-		public static event Action ScoreChanged;
+		public static event Action ScoreIncreased;
 		public static event Action GameLost;
+		public static event Action NewGameStarted;
+		public static event Action FirstTargetWasShot;
 
-		private static int currentScore;
-		public static int CurrentScore
-		{
-			get => currentScore;
-			private set
-			{
-				currentScore = value;
-				ScoreChanged?.Invoke();
-			}
-		}
+		private static bool isWaitingForFirstTargetShot;
 
+		public static int CurrentScore { get; private set; }
 		public static int Highscore { get; private set; }
+
+		public static void StartNewGame()
+		{
+			isWaitingForFirstTargetShot = true;
+			NewGameStarted?.Invoke();
+		}
 
 		public static void NotifyTargetWasHit(Target target)
 		{
 			CurrentScore++;
+			ScoreIncreased?.Invoke();
+
+			if (isWaitingForFirstTargetShot)
+			{
+				isWaitingForFirstTargetShot = false;
+				FirstTargetWasShot?.Invoke();
+			}
 		}
 
 		public static void NotifyPlayerWasHit()

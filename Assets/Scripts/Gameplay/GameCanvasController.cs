@@ -1,18 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class GameCanvasController : MonoBehaviour
+namespace MadsBangH.ArcheryGame
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public class GameCanvasController : MonoBehaviour
+	{
+		private static readonly int ScoreBumpedHash = Animator.StringToHash("Score Bumped");
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+		[SerializeField]
+		private TMP_Text scoreLabel;
+		[SerializeField]
+		private Animator scoreLabelAnimator;
+
+		private void OnEnable()
+		{
+			ArcheryGame.ScoreIncreased += ArcheryGame_ScoreChanged;
+		}
+
+		private void OnDisable()
+		{
+			ArcheryGame.ScoreIncreased -= ArcheryGame_ScoreChanged;
+		}
+
+		private void ArcheryGame_ScoreChanged()
+		{
+			scoreLabel.text = ArcheryGame.CurrentScore.ToString();
+			scoreLabelAnimator.SetTrigger(ScoreBumpedHash);
+		}
+	}
 }
