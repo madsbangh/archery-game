@@ -8,9 +8,11 @@ namespace MadsBangH.ArcheryGame
 	public class Arrow : MonoBehaviour
 	{
 		[SerializeField]
-		private Transform arrowHead;
+		private string TargetTag = default;
 		[SerializeField]
-		private float arrowHeadDownForce;
+		private Transform arrowHead = default;
+		[SerializeField]
+		private float arrowHeadDownForce = default;
 
 		private Rigidbody2D rb;
 
@@ -27,6 +29,14 @@ namespace MadsBangH.ArcheryGame
 		private void OnBecameInvisible()
 		{
 			Destroy(gameObject); 
+		}
+
+		private void OnTriggerEnter2D(Collider2D collision)
+		{
+			if (collision.CompareTag(TargetTag))
+			{
+				Destroy(gameObject);
+			}
 		}
 
 		public void SetPositionRotationAndSpeed(Vector3 position, float rotation, float speed)

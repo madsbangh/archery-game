@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2993210502434703959}
+  - component: {fileID: 5297140358919465541}
   - component: {fileID: 2993210502434703958}
   - component: {fileID: 2993210502434703953}
   - component: {fileID: 2993210502434703956}
-  - component: {fileID: 5297140358919465541}
   m_Layer: 0
   m_Name: ArrowProjectile
   m_TagString: Untagged
@@ -35,6 +35,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5297140358919465541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2993210502434703952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f6ff3d52851b0f4898f2fcac7b16d7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetTag: Target
+  arrowHead: {fileID: 2993210502970529349}
+  arrowHeadDownForce: 1
 --- !u!212 &2993210502434703958
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -130,20 +145,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &5297140358919465541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2993210502434703952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f6ff3d52851b0f4898f2fcac7b16d7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arrowHead: {fileID: 2993210502970529349}
-  arrowHeadDownForce: 1
 --- !u!1 &2993210502970529348
 GameObject:
   m_ObjectHideFlags: 0
