@@ -72,6 +72,7 @@ namespace MadsBangH.ArcheryGame
 			{
 				Target spawnedTarget = Instantiate(targetPrefab, GetRandomSpawnPosition(), Quaternion.identity);
 				spawnedTarget.willAttack = true;
+				ArcheryGame.NotifyTargetWasSpawned(spawnedTarget);
 
 				yield return new WaitForSeconds(SpawnInterval);
 			}

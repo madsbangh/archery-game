@@ -12,6 +12,7 @@ namespace MadsBangH.ArcheryGame
 		public static event Action NewGameStarted;
 		public static event Action FirstTargetWasShot;
 		public static event Action<Target> TargetWasHit;
+		public static event Action<Target> TargetSpawned;
 
 		private static bool isWaitingForFirstTargetShot;
 		private static bool startNewGameOnTap;
@@ -81,7 +82,10 @@ namespace MadsBangH.ArcheryGame
 			CurrentScore = 0;
 		}
 
-
+		public static void NotifyTargetWasSpawned(Target target)
+		{
+			TargetSpawned?.Invoke(target);
+		}
 
 		private IEnumerator PerformActionAfterSecondsCoroutine(Action action, float seconds)
 		{
