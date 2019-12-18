@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace MadsBangH.ArcheryGame
 {
+	/// <summary>
+	/// This class plays some of the one-off sounds which are cumbersome to play at their source
+	/// </summary>
 	[RequireComponent(typeof(AudioSource))]
 	public class SoundPlayer : MonoBehaviour
 	{
