@@ -16,9 +16,6 @@ namespace MadsBangH.ArcheryGame
 
 		private Rigidbody2D rb;
 
-		private bool isOutsideView;
-		private float becameInvvisibleTime;
-
 		private void Awake()
 		{
 			rb = GetComponent<Rigidbody2D>();
@@ -29,23 +26,9 @@ namespace MadsBangH.ArcheryGame
 			rb.AddForceAtPosition(Vector2.down * arrowHeadDownForce, arrowHead.position);
 		}
 
-		private void Update()
-		{
-			if (isOutsideView && Time.time - becameInvvisibleTime > DestroyDelay)
-			{
-				Destroy(gameObject);
-			}
-		}
-
 		private void OnBecameInvisible()
 		{
-			isOutsideView = true;
-			becameInvvisibleTime = Time.time;
-		}
-
-		private void OnBecameVisible()
-		{
-			isOutsideView = false;
+			Destroy(gameObject);
 		}
 
 		private void OnTriggerEnter2D(Collider2D collision)
