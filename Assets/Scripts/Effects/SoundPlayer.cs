@@ -16,6 +16,10 @@ namespace MadsBangH.ArcheryGame
 		private AudioClip gameOver = default;
 		[SerializeField]
 		private AudioClip gameIntro = default;
+		[SerializeField]
+		private AudioClip targetSpawn = default;
+		[SerializeField]
+		private AudioClip targetAttack = default;
 
 		private AudioSource audioSource;
 
@@ -29,6 +33,8 @@ namespace MadsBangH.ArcheryGame
 			ArcheryGame.FirstTargetWasShot += ArcheryGame_FirstTargetWasShot;
 			ArcheryGame.TargetWasHit += ArcheryGame_TargetWasHit;
 			ArcheryGame.GameLost += ArcheryGame_GameLost;
+			ArcheryGame.TargetSpawned += ArcheryGame_TargetSpawned;
+			ArcheryGame.TargetIndicatedAttack += ArcheryGame_TargetIndicatedAttack;
 		}
 
 		private void OnDisable()
@@ -36,6 +42,8 @@ namespace MadsBangH.ArcheryGame
 			ArcheryGame.FirstTargetWasShot -= ArcheryGame_FirstTargetWasShot;
 			ArcheryGame.TargetWasHit -= ArcheryGame_TargetWasHit;
 			ArcheryGame.GameLost -= ArcheryGame_GameLost;
+			ArcheryGame.TargetSpawned -= ArcheryGame_TargetSpawned;
+			ArcheryGame.TargetIndicatedAttack -= ArcheryGame_TargetIndicatedAttack;
 		}
 
 		private void ArcheryGame_FirstTargetWasShot()
@@ -53,6 +61,18 @@ namespace MadsBangH.ArcheryGame
 		{
 			audioSource.pitch = Random.Range(0.98f, 1.02f);
 			audioSource.PlayOneShot(gameOver);
+		}
+
+		private void ArcheryGame_TargetSpawned(Target target)
+		{
+			audioSource.pitch = Random.Range(0.9f, 1.1f);
+			audioSource.PlayOneShot(targetSpawn, 0.5f);
+		}
+
+		private void ArcheryGame_TargetIndicatedAttack(Target target)
+		{
+			audioSource.pitch = Random.Range(0.9f, 1.1f);
+			audioSource.PlayOneShot(targetAttack, 0.5f);
 		}
 	}
 }

@@ -69,6 +69,8 @@ namespace MadsBangH.ArcheryGame
 		{
 			animator.SetTrigger(IndicateAttackHash);
 
+			ArcheryGame.NotifyTargetIndicatedAttack(this);
+
 			yield return new WaitForSeconds(1f);
 
 			rb.velocity = (ArcheryPlayer.Position - rb.position).normalized * AttackMovementSpeed;

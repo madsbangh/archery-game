@@ -1047,6 +1047,8 @@ MonoBehaviour:
   targetExplosion: {fileID: 8300000, guid: 0291f3c604335bf45b90d326de065adc, type: 3}
   gameOver: {fileID: 8300000, guid: 8e230f00d72ec6042b5c9881c5481af9, type: 3}
   gameIntro: {fileID: 8300000, guid: e3a50766c1d50b7469e65ef60ca50b13, type: 3}
+  targetSpawn: {fileID: 8300000, guid: 1d98d1f426859a144af5285a64013aed, type: 3}
+  targetAttack: {fileID: 8300000, guid: c2729019a9ccfe14798d096129c05ef1, type: 3}
 --- !u!4 &634041841
 Transform:
   m_ObjectHideFlags: 0
