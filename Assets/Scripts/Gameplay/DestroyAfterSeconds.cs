@@ -6,7 +6,7 @@ namespace MadsBangH.ArcheryGame
 	public class DestroyAfterSeconds : MonoBehaviour
 	{
 		[SerializeField]
-		private float seconds;
+		private float seconds = default;
 
 		private IEnumerator Start()
 		{

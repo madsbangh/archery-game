@@ -11,6 +11,7 @@ namespace MadsBangH.ArcheryGame
 		public static event Action GameLost;
 		public static event Action NewGameStarted;
 		public static event Action FirstTargetWasShot;
+		public static event Action<Target> TargetWasHit;
 
 		private static bool isWaitingForFirstTargetShot;
 		private static bool startNewGameOnTap;
@@ -40,6 +41,8 @@ namespace MadsBangH.ArcheryGame
 
 		public static void NotifyTargetWasHit(Target target)
 		{
+			TargetWasHit?.Invoke(target);
+
 			CurrentScore++;
 			ScoreIncreased?.Invoke();
 
