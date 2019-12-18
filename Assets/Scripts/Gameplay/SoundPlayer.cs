@@ -11,6 +11,8 @@ namespace MadsBangH.ArcheryGame
 		private AudioClip targetExplosion = default;
 		[SerializeField]
 		private AudioClip gameOver = default;
+		[SerializeField]
+		private AudioClip gameIntro = default;
 
 		private AudioSource audioSource;
 
@@ -21,14 +23,21 @@ namespace MadsBangH.ArcheryGame
 
 		private void OnEnable()
 		{
+			ArcheryGame.FirstTargetWasShot += ArcheryGame_FirstTargetWasShot;
 			ArcheryGame.TargetWasHit += ArcheryGame_TargetWasHit;
 			ArcheryGame.GameLost += ArcheryGame_GameLost;
 		}
 
 		private void OnDisable()
 		{
+			ArcheryGame.FirstTargetWasShot -= ArcheryGame_FirstTargetWasShot;
 			ArcheryGame.TargetWasHit -= ArcheryGame_TargetWasHit;
 			ArcheryGame.GameLost -= ArcheryGame_GameLost;
+		}
+
+		private void ArcheryGame_FirstTargetWasShot()
+		{
+			audioSource.PlayOneShot(gameIntro);
 		}
 
 		private void ArcheryGame_TargetWasHit(Target target)
