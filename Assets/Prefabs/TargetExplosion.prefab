@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9124060113314210330}
+  - component: {fileID: 3695271729903190578}
   - component: {fileID: 9124060113314210331}
   - component: {fileID: 9124060113314210328}
-  - component: {fileID: 3695271729903190578}
   m_Layer: 0
   m_Name: TargetExplosion
   m_TagString: Untagged
@@ -33,6 +33,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3695271729903190578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9124060113314210329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc3c3aaee32d21a4db1cddf2ae159f63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seconds: 1.2
 --- !u!198 &9124060113314210331
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -4775,16 +4788,3 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &3695271729903190578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9124060113314210329}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc3c3aaee32d21a4db1cddf2ae159f63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seconds: 1.2
