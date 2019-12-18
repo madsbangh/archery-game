@@ -7,12 +7,17 @@ namespace MadsBangH.ArcheryGame
 	[RequireComponent(typeof(Rigidbody2D))]
 	public class Arrow : MonoBehaviour
 	{
+		private const float DestroyDelay = 1f;
+
 		[SerializeField]
 		private Transform arrowHead = default;
 		[SerializeField]
 		private float arrowHeadDownForce = default;
 
 		private Rigidbody2D rb;
+
+		private bool isOutsideView;
+		private float becameInvvisibleTime;
 
 		private void Awake()
 		{
@@ -24,9 +29,23 @@ namespace MadsBangH.ArcheryGame
 			rb.AddForceAtPosition(Vector2.down * arrowHeadDownForce, arrowHead.position);
 		}
 
+		private void Update()
+		{
+			if (isOutsideView && Time.time - becameInvvisibleTime > DestroyDelay)
+			{
+				Destroy(gameObject);
+			}
+		}
+
 		private void OnBecameInvisible()
 		{
-			Destroy(gameObject); 
+			isOutsideView = true;
+			becameInvvisibleTime = Time.time;
+		}
+
+		private void OnBecameVisible()
+		{
+			isOutsideView = false;
 		}
 
 		private void OnTriggerEnter2D(Collider2D collision)
