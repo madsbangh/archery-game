@@ -59,6 +59,7 @@ namespace MadsBangH.ArcheryGame
 				.Replace("{highscore}", ArcheryGame.Highscore.ToString());
 
 			gameOverLabelsAnimator.SetBool(VisibleHash, true);
+			scoreLabelAnimator.SetBool(VisibleHash, false);
 		}
 
 		private void ArcheryGame_NewGameStarted()
@@ -70,6 +71,7 @@ namespace MadsBangH.ArcheryGame
 		private void ArcheryGame_FirstTargetWasShot()
 		{
 			startGameLabelAnimator.SetBool(VisibleHash, false);
+			scoreLabelAnimator.SetBool(VisibleHash, true);
 		}
 	}
 }
