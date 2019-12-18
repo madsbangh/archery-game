@@ -12,6 +12,9 @@ namespace MadsBangH.ArcheryGame
 
 		public bool willAttack;
 
+		[SerializeField]
+		private GameObject deathExplosionPrefab = default;
+
 		private Animator animator;
 		private Rigidbody2D rb;
 
@@ -45,6 +48,7 @@ namespace MadsBangH.ArcheryGame
 			{
 				Destroy(gameObject);
 				ArcheryGame.NotifyTargetWasHit(this);
+				Instantiate(deathExplosionPrefab, transform.position, Quaternion.identity);
 			}
 			else if (collision.CompareTag(Tags.Player))
 			{

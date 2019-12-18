@@ -48,7 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8055b561d4681dc429b8524aac913b60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ArrowTag: Arrow
+  willAttack: 0
+  deathExplosionPrefab: {fileID: 9124060113314210329, guid: a3d7b65c38693de4f9a1239048b14140,
+    type: 3}
 --- !u!212 &5497380378835032441
 SpriteRenderer:
   m_ObjectHideFlags: 0
