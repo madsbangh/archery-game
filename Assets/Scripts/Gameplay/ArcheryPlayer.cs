@@ -29,6 +29,8 @@ namespace MadsBangH.ArcheryGame
 		private bool isReloaded;
 		private float lastShotTime;
 
+		private bool allowShooting;
+
 		private static ArcheryPlayer instance;
 		public static Vector2 Position
 		{
@@ -52,8 +54,45 @@ namespace MadsBangH.ArcheryGame
 			isReloaded = true;
 		}
 
+		private void OnEnable()
+		{
+			ArcheryGame.NewGameStarted += ArcheryGame_NewGameStarted;
+			ArcheryGame.GameLost += ArcheryGame_GameLost;
+		}
+
+		private void OnDisable()
+		{
+			ArcheryGame.NewGameStarted -= ArcheryGame_NewGameStarted;
+			ArcheryGame.GameLost -= ArcheryGame_GameLost;
+		}
+
+		private void ArcheryGame_NewGameStarted()
+		{
+			allowShooting = true;
+		}
+
+		private void ArcheryGame_GameLost()
+		{
+			allowShooting = false;
+		}
+
+		private void OnTriggerEnter2D(Collider2D collision)
+		{
+			if (collision.CompareTag(Tags.Target))
+			{
+				ArcheryGame.NotifyPlayerWasHit();
+			}
+		}
+
 		private void Update()
 		{
+			if (!allowShooting)
+			{
+				isPullingBow = false;
+				arrowOnBow.SetActive(false);
+				return;
+			}
+
 			// Reload if cooldown has passed
 			if (Time.time > lastShotTime + ReloadCooldownSeconds)
 			{

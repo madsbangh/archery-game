@@ -12,9 +12,6 @@ namespace MadsBangH.ArcheryGame
 
 		public bool willAttack;
 
-		[SerializeField]
-		private string ArrowTag = default;
-
 		private Animator animator;
 		private Rigidbody2D rb;
 
@@ -27,12 +24,31 @@ namespace MadsBangH.ArcheryGame
 			rb = GetComponent<Rigidbody2D>();
 		}
 
+		private void OnEnable()
+		{
+			ArcheryGame.GameLost += ArcheryGame_GameLost;
+		}
+
+		private void OnDisable()
+		{
+			ArcheryGame.GameLost -= ArcheryGame_GameLost;
+		}
+
+		private void ArcheryGame_GameLost()
+		{
+			Destroy(gameObject);
+		}
+
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
-			if (collision.CompareTag(ArrowTag))
+			if (collision.CompareTag(Tags.Arrow))
 			{
 				Destroy(gameObject);
 				ArcheryGame.NotifyTargetWasHit(this);
+			}
+			else if (collision.CompareTag(Tags.Player))
+			{
+				Destroy(gameObject);
 			}
 		}
 

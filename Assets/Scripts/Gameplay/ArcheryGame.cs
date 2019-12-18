@@ -13,6 +13,7 @@ namespace MadsBangH.ArcheryGame
 		public static event Action FirstTargetWasShot;
 
 		private static bool isWaitingForFirstTargetShot;
+		private static bool startNewGameOnTap;
 
 		public static int CurrentScore { get; private set; }
 		public static int Highscore { get; private set; }
@@ -20,6 +21,15 @@ namespace MadsBangH.ArcheryGame
 		private void Start()
 		{
 			StartNewGame();
+		}
+
+		private void Update()
+		{
+			if (startNewGameOnTap && Input.GetMouseButtonDown(0))
+			{
+				startNewGameOnTap = false;
+				StartNewGame();
+			}
 		}
 
 		public static void StartNewGame()
@@ -50,6 +60,8 @@ namespace MadsBangH.ArcheryGame
 			GameLost?.Invoke();
 
 			CurrentScore = 0;
+
+			startNewGameOnTap = true;
 		}
 	}
 }

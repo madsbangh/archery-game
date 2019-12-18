@@ -8,8 +8,6 @@ namespace MadsBangH.ArcheryGame
 	public class Arrow : MonoBehaviour
 	{
 		[SerializeField]
-		private string TargetTag = default;
-		[SerializeField]
 		private Transform arrowHead = default;
 		[SerializeField]
 		private float arrowHeadDownForce = default;
@@ -33,7 +31,7 @@ namespace MadsBangH.ArcheryGame
 
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
-			if (collision.CompareTag(TargetTag))
+			if (collision.CompareTag(Tags.Target))
 			{
 				Destroy(gameObject);
 			}
