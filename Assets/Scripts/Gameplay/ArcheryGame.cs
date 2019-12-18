@@ -26,7 +26,7 @@ namespace MadsBangH.ArcheryGame
 
 		private void Update()
 		{
-			if (startNewGameOnTap && Input.GetMouseButtonDown(0))
+			if (startNewGameOnTap && Input.GetMouseButtonUp(0))
 			{
 				startNewGameOnTap = false;
 				StartNewGame();
