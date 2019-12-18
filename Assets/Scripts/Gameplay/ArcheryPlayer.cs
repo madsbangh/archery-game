@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace MadsBangH.ArcheryGame
 {
+	[RequireComponent(typeof(AudioSource))]
 	public class ArcheryPlayer : MonoBehaviour
 	{
 		private const float ShotForceMultiplier = 16f;
@@ -26,14 +27,21 @@ namespace MadsBangH.ArcheryGame
 		[SerializeField]
 		private GameObject deathExplosionPrefab = default;
 
+		[SerializeField]
+		private AudioClip pull = default;
+		[SerializeField]
+		private AudioClip shoot = default;
+
 		private bool isPullingBow;
 		private float pullStartDistance;
 		private bool isReloaded;
 		private float lastShotTime;
 
 		private bool allowShooting;
+		private AudioSource audioSource;
 
 		private static ArcheryPlayer instance;
+
 		public static Vector2 Position
 		{
 			get
@@ -48,6 +56,11 @@ namespace MadsBangH.ArcheryGame
 				}
 				return instance.transform.position;
 			}
+		}
+
+		private void Awake()
+		{
+			audioSource = GetComponent<AudioSource>();
 		}
 
 		private void Start()
@@ -125,6 +138,10 @@ namespace MadsBangH.ArcheryGame
 				{
 					isPullingBow = true;
 					pullStartDistance = pullVector.magnitude;
+
+					audioSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+					audioSource.clip = pull;
+					audioSource.Play();
 				}
 			}
 		}
@@ -147,6 +164,10 @@ namespace MadsBangH.ArcheryGame
 			var arrowProjectile = Instantiate(arrowProjectilePrefab);
 			float speed = (ShotForceBase + stretchAmount * ShotForceMultiplier);
 			arrowProjectile.SetPositionRotationAndSpeed(arrowOnBow.transform.position, angle, speed);
+
+			audioSource.Stop();
+			audioSource.pitch = 0.8f + 0.4f * stretchAmount;
+			audioSource.PlayOneShot(shoot);
 		}
 	}
 }

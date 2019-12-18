@@ -26,11 +26,27 @@ namespace MadsBangH.ArcheryGame
 
 		private void Update()
 		{
-			if (startNewGameOnTap && Input.GetMouseButtonUp(0))
+			if (startNewGameOnTap && Input.GetMouseButtonDown(0))
 			{
 				startNewGameOnTap = false;
 				StartNewGame();
 			}
+		}
+
+		private void OnEnable()
+		{
+			GameLost += ArcheryGame_GameLost;
+		}
+
+		private void OnDisable()
+		{
+			GameLost -= ArcheryGame_GameLost;
+		}
+
+		private void ArcheryGame_GameLost()
+		{
+			// Enable tap to restart after 2 seconds when game is lost
+			StartCoroutine(PerformActionAfterSecondsCoroutine(() => startNewGameOnTap = true, 2f));
 		}
 
 		public static void StartNewGame()
@@ -63,8 +79,14 @@ namespace MadsBangH.ArcheryGame
 			GameLost?.Invoke();
 
 			CurrentScore = 0;
+		}
 
-			startNewGameOnTap = true;
+
+
+		private IEnumerator PerformActionAfterSecondsCoroutine(Action action, float seconds)
+		{
+			yield return new WaitForSeconds(seconds);
+			action?.Invoke();
 		}
 	}
 }
