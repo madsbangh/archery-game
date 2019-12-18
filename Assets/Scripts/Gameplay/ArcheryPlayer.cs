@@ -23,6 +23,8 @@ namespace MadsBangH.ArcheryGame
 		private GameObject arrowOnBow = default;
 		[SerializeField]
 		private Arrow arrowProjectilePrefab = default;
+		[SerializeField]
+		private GameObject deathExplosionPrefab = default;
 
 		private bool isPullingBow;
 		private float pullStartDistance;
@@ -81,6 +83,7 @@ namespace MadsBangH.ArcheryGame
 			if (collision.CompareTag(Tags.Target))
 			{
 				ArcheryGame.NotifyPlayerWasHit();
+				Instantiate(deathExplosionPrefab, transform.position, Quaternion.identity);
 			}
 		}
 

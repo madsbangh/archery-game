@@ -2278,6 +2278,8 @@ MonoBehaviour:
   arrowOnBow: {fileID: 167961769}
   arrowProjectilePrefab: {fileID: 5297140358919465541, guid: 694018c934be9e34dbf9a7646ff6c1fb,
     type: 3}
+  deathExplosionPrefab: {fileID: 7564638313316069917, guid: fb95e4872b5572e41b86eb9d23f5e49e,
+    type: 3}
 --- !u!61 &1904953144
 BoxCollider2D:
   m_ObjectHideFlags: 0
